@@ -19,8 +19,6 @@ Shows your workspace info at a glance with classic powerline arrow separators be
 | model | ◆ | Active Claude model | Pink on deep navy |
 | session | ⏱ | Session duration | Cyan on dark |
 | context | ◉ | Context window usage with progress bar | Adaptive (green/orange/red) |
-| todos | ✎ | TODO/FIXME/XXX count in source files | Orange (only shown if > 0) |
-| battery | ● | Battery level (macOS) | Adaptive (green/orange/red) |
 
 ### Context bar
 
@@ -30,19 +28,11 @@ The context segment includes a mini progress bar (`━━━━────`) th
 - **50-79%** — orange (getting warm)
 - **80%+** — red (close to the limit)
 
-### Battery
-
-Same adaptive coloring:
-- **> 50%** — green
-- **20-50%** — orange
-- **< 20%** — red
-
 ## Requirements
 
 - **Bash 4+**
 - **jq** (for JSON parsing)
 - A terminal font with **Powerline glyphs** (e.g., any [Nerd Font](https://www.nerdfonts.com/))
-- **macOS** for battery segment (auto-hidden on Linux/Windows)
 
 ## Installation
 
@@ -150,7 +140,7 @@ Other options:
 Claude Code pipes JSON session data via stdin to the status line command on every update (~150ms). The script:
 
 1. Parses the JSON with `jq` to extract model, directory, context window data
-2. Gathers additional info (git status, session duration, battery, TODOs)
+2. Gathers additional info (git status, session duration)
 3. Builds an array of colored segments
 4. Renders them with powerline arrow separators using ANSI truecolor escape codes
 5. Outputs a single line to stdout

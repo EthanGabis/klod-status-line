@@ -66,18 +66,6 @@ if [ "$session_start" -gt 0 ] && [ "$current_epoch" -gt 0 ]; then
   fi
 fi
 
-# Todos
-todo_count=0
-if [ -d "$current_dir" ]; then
-  todo_count=$(timeout 1 find "$current_dir" -maxdepth 3 -type f \( -name "*.js" -o -name "*.ts" -o -name "*.jsx" -o -name "*.tsx" -o -name "*.py" -o -name "*.java" -o -name "*.go" -o -name "*.rb" -o -name "*.php" -o -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.sh" \) -exec grep -l "TODO\|FIXME\|XXX" {} \; 2>/dev/null | wc -l | tr -d ' ' || echo "0")
-fi
-
-# Battery (macOS)
-battery_pct=""
-if command -v pmset >/dev/null 2>&1; then
-  battery_pct=$(pmset -g batt 2>/dev/null | grep -Eo "[0-9]+%" | head -1 || echo "")
-fi
-
 # ── Powerline rendering (classic pointy arrows) ─────────────────────
 RST="\033[0m"
 SEP=$'\xee\x82\xb0'  # U+E0B0 powerline right arrow (raw UTF-8 bytes)
@@ -125,23 +113,6 @@ elif [ "$context_pct" -ge 50 ]; then
   add_seg 50 45 35   255 158 100  " ◉ context: ${ctx_bar} ${context_pct}% "
 else
   add_seg 41 46 66   134 144 184  " ◉ context: ${ctx_bar} ${context_pct}% "
-fi
-
-# todos: orange bg, dark text (only if > 0)
-if [ "$todo_count" -gt 0 ]; then
-  add_seg 255 158 100   26 27 38  " ✎ todos: ${todo_count} "
-fi
-
-# battery: color based on level
-if [ -n "$battery_pct" ]; then
-  batt_num=${battery_pct%\%}
-  if [ "$batt_num" -le 20 ]; then
-    add_seg 247 118 142   26 27 38  " ● battery: ${battery_pct} "
-  elif [ "$batt_num" -le 50 ]; then
-    add_seg 255 158 100   26 27 38  " ● battery: ${battery_pct} "
-  else
-    add_seg 30 32 48   79 214 190  " ● battery: ${battery_pct} "
-  fi
 fi
 
 # ── Render classic powerline ─────────────────────────────────────────
