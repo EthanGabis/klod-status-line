@@ -4,9 +4,11 @@ A powerline-styled status line for Claude Code with Tokyo Night colors.
 
 Shows your workspace info at a glance with classic powerline arrow separators between colored segments.
 
-```
- dir: Projects  branch: main*  ◆ model: Opus 4.6  ⏱ session: 2h15m  ◉ context: ━━━━──── 55%  ● battery: 85%
-```
+<p align="center">
+  <img src="assets/screenshot.png" alt="klod-status-line screenshot" width="700">
+  <br>
+  <sub>Line 1: klod-status-line (powerline segments) | Line 2: claude-pulse (usage bars)</sub>
+</p>
 
 ## Segments
 
